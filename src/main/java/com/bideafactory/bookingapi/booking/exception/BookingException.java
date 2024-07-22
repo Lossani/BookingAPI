@@ -5,14 +5,15 @@ import org.springframework.http.HttpStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+// Excepción personalizada
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class BookingExceptions extends RuntimeException {
+public class BookingException extends RuntimeException {
     private HttpStatus statusCode;
     private String error;
     private String message;
 
-    public BookingExceptions(String error, String message, HttpStatus httpStatus) {
+    public BookingException(String error, String message, HttpStatus httpStatus) {
         super(message);
         this.error = error;
         this.message = message;
