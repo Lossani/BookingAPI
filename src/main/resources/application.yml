@@ -1,3 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://34.151.230.206:5432/bidea
+    username: leodev
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
 external:
   api:
     discountValidator:
@@ -19,9 +31,9 @@ resilience4j:
     instances:
       validateDiscount:
         maxAttempts: 3
-        waitDuration: 500ms
+        waitDuration: 5000ms
 
   timelimiter:
     instances:
       validateDiscount:
-        timeoutDuration: 2s
+        timeoutDuration: 5s
