@@ -1,0 +1,27 @@
+external:
+  api:
+    discountValidator:
+      url: https://sbv2bumkomidlxwffpgbh4k6jm0ydskh.lambda-url.us-east-1.on.aws/
+      timeout: 5000
+      retries: 3
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      validateDiscount:
+        registerHealthIndicator: true
+        ringBufferSizeInClosedState: 5
+        ringBufferSizeInHalfOpenState: 3
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+
+  retry:
+    instances:
+      validateDiscount:
+        maxAttempts: 3
+        waitDuration: 500ms
+
+  timelimiter:
+    instances:
+      validateDiscount:
+        timeoutDuration: 2s
