@@ -1,5 +1,7 @@
 package com.bideafactory.bookingapi.shared.external.api.discounts.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -16,6 +18,8 @@ public class DiscountServiceImpl implements DiscountService {
 
     private WebClient webClient;
 
+    Logger logger = LoggerFactory.getLogger(DiscountService.class);
+
     public DiscountServiceImpl(WebClient webClient) {
         this.webClient = webClient;
     }
@@ -26,6 +30,7 @@ public class DiscountServiceImpl implements DiscountService {
     // TODO: Implementar el TimeLimiter que necesita retornar un CompletionStage
     // @TimeLimiter(name = "validateDiscount") // Necesita CompletionStage
     public Mono<Boolean> validateDiscountCode(DiscountValidationRequest request) {
+        logger.info("Making request to external discount API.");
         // Llamada el API externo.
         return webClient.post()
                 .uri("/")
@@ -43,6 +48,7 @@ public class DiscountServiceImpl implements DiscountService {
     }
 
     public Mono<Boolean> fallback(DiscountValidationRequest request, Throwable ex) {
+        logger.warn("External discount API call fallback was called.");
         return Mono.just(false);
     }
 

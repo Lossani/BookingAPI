@@ -1,5 +1,7 @@
 package com.bideafactory.bookingapi.booking.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.bideafactory.bookingapi.booking.domain.dto.BookInDTO;
@@ -13,6 +15,7 @@ public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository repository;
     private final BookInDTOToBook mapper;
+    Logger logger = LoggerFactory.getLogger(BookingService.class);
 
     public BookingServiceImpl(BookingRepository repository, BookInDTOToBook mapper) {
         this.repository = repository;
@@ -21,8 +24,11 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Book createBook(BookInDTO bookInDTO) {
+        logger.debug("createBook called");
         Book book = mapper.map(bookInDTO);
-        return this.repository.save(book);
+        Book newBook = this.repository.save(book);
+        logger.debug("createBook finished inserting");
+        return newBook;
     }
 
 }
