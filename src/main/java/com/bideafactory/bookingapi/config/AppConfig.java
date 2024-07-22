@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import io.github.resilience4j.common.circuitbreaker.configuration.CircuitBreakerConfigCustomizer;
 import io.github.resilience4j.common.retry.configuration.RetryConfigCustomizer;
 import io.github.resilience4j.common.timelimiter.configuration.TimeLimiterConfigCustomizer;
 
@@ -30,13 +29,7 @@ public class AppConfig {
                 .build();
     }
 
-    @Bean
-    public CircuitBreakerConfigCustomizer testCustomizer() {
-        return CircuitBreakerConfigCustomizer
-                .of("validateDiscount", builder -> builder
-                        .failureRateThreshold(50)
-                        .waitDurationInOpenState(Duration.ofMillis(1000)).slidingWindowSize(100));
-    }
+    // Configuración de Resilience4J para manejar retries y timeouts.
 
     @Bean
     public RetryConfigCustomizer retryRegistryCustomizer() {
