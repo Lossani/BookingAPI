@@ -1,6 +1,6 @@
 package com.bideafactory.bookingapi.booking.domain.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -19,8 +19,8 @@ public class Book {
     private Integer age;
     private String phoneNumber;
 
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     private String houseId;
     private String discountCode;
