@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://34.151.230.206:5432/bidea
+    url: jdbc:postgresql://localhost/bidea
     username: leodev
     password: 123456
   jpa:
