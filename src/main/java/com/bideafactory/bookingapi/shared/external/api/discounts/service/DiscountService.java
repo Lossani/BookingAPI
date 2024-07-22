@@ -7,5 +7,5 @@ import reactor.core.publisher.Mono;
 public interface DiscountService {
     public Mono<Boolean> validateDiscountCode(DiscountValidationRequest request);
 
-    public Mono<Boolean> fallback(String discountCode, Throwable ex);
+    public Mono<Boolean> fallback(DiscountValidationRequest request, Throwable ex);
 }

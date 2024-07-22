@@ -9,7 +9,6 @@ import com.bideafactory.bookingapi.shared.external.api.discounts.service.Discoun
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
-import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -24,8 +23,10 @@ public class DiscountServiceImpl implements DiscountService {
     @Override
     @CircuitBreaker(name = "validateDiscount", fallbackMethod = "fallback")
     @Retry(name = "validateDiscount")
-    @TimeLimiter(name = "validateDiscount")
+    // TODO: Implementar el TimeLimiter que necesita retornar un CompletionStage
+    // @TimeLimiter(name = "validateDiscount") // Necesita CompletionStage
     public Mono<Boolean> validateDiscountCode(DiscountValidationRequest request) {
+        // Llamada el API externo.
         return webClient.post()
                 .uri("/")
                 .bodyValue(request)
@@ -41,7 +42,7 @@ public class DiscountServiceImpl implements DiscountService {
                 });
     }
 
-    public Mono<Boolean> fallback(String discountCode, Throwable ex) {
+    public Mono<Boolean> fallback(DiscountValidationRequest request, Throwable ex) {
         return Mono.just(false);
     }
 
